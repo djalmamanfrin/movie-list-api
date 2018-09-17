@@ -1,0 +1,20 @@
+
+movies
+- title
+- year
+- winner
+- active
+
+studios
+- studio_id
+- name
+
+producers
+- producer_id
+- name
+
+studios_producers
+- studio_producer_id
+- studio_id
+- producer_id
+- studio_id
