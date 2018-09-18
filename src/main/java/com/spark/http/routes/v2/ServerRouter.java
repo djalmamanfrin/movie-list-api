@@ -1,30 +1,31 @@
-package com.spark.http.routes.v1;
+package com.rentcars.fortune.application.http.routes.v2;
 
+import com.rentcars.fortune.application.http.controllers.v2.TestController;
 import com.rentcars.fortune.application.http.routes.Router;
+import java.util.ArrayList;
+import java.util.List;
+import static spark.Spark.get;
 
+/**
+ * Class ServerRouter
+ * V2 Routes
+ */
 public class ServerRouter implements Router {
 
-
-    protected String version = "v1";
+    protected String version = "v2";
     private List<String> routes = new ArrayList<>();
 
     @Override
     public void mapFilters() throws Exception {
-        // before("/*", ""); Before validation
+
+        get("/" + version + "/test", TestController::test);
+        routes.add("GET /" + version + "/test");
     }
-
-
 
     @Override
     public void mapRoutes() {
 
-      path("/", () -> {
-        get("", IndexController::index);
-        get("/ping", IndexController::ping);
-      });
     }
-
-
 
     @Override
     public List<String> getRoutes() {
