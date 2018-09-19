@@ -8,11 +8,10 @@ import spark.Spark;
 import java.util.logging.Logger;
 
 public class ApplicationServer {
-    private Logger logger;
     private ApplicationServerConfiguration configuration;
 
-    public ApplicationServer(ApplicationServerConfiguration configuration) {
-        this.configuration = configuration;
+    public ApplicationServer() {
+        this.configuration = new ApplicationServerConfiguration();
         config();
         routes();
     }
@@ -26,18 +25,14 @@ public class ApplicationServer {
       String version = configuration.getVersion();
       AbstractRouterMapper routeMapper = new RouteManager(version).getMapper();
 
-      /**
-      * Filtros definidos para aplicação
-      */
-      try {
-        routeMapper.mapFilters();
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
+      // Filtros definidos para aplicação
+//      try {
+//        routeMapper.mapFilters();
+//      } catch (Exception e) {
+//        e.printStackTrace();
+//      }
 
-      /**
-       * Rotas definidas para a aplicação
-       */
+      // Rotas definidas para a aplicação
       routeMapper.mapRoutes();
     }
 }

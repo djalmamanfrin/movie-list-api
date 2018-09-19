@@ -1,6 +1,7 @@
 package com.spark.http.routes.v1;
 
 import com.spark.http.controllers.v1.IndexController;
+import com.spark.http.controllers.v1.MoviesController;
 import com.spark.http.routes.Router;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ public class ServerRouter implements Router {
     @Override
     public void mapRoutes() {
         path("/", () -> {
-            get("", IndexController::index);
+//            get("", IndexController::index);
             get("/ping", IndexController::ping);
         });
     }

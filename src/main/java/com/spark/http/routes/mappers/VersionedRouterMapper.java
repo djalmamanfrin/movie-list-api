@@ -15,7 +15,6 @@ public class VersionedRouterMapper extends AbstractRouterMapper {
   }
 
   public Set<Router> getRouters() {
-
       routes = new HashSet<>();
       Integer intVersion = getIntegerVersion(version);
       Reflections reflections = new Reflections(PACKAGES_TO_SCAN);
@@ -28,7 +27,6 @@ public class VersionedRouterMapper extends AbstractRouterMapper {
 
           // Ignora este router
           if (routerClass.equals(this.getClass())) continue;
-
           try {
               Router router = (Router) routerClass.newInstance();
               Integer routerVersion = router.getIntegerVersion();

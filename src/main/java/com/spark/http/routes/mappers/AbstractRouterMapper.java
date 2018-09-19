@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 abstract public class AbstractRouterMapper {
-  protected static final String PACKAGES_TO_SCAN = "com.rentcars.fortune.application.http.routes.*";
+  protected static final String PACKAGES_TO_SCAN = "com.spark.http.routes.*";
   protected Set<Router> routes = new HashSet<>();
   // protected List<String> routes = new ArrayList<>();
   protected String version = "v1";

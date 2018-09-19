@@ -5,19 +5,23 @@ import com.spark.http.routes.mappers.AllVersionsRouterMapper;
 import com.spark.http.routes.mappers.VersionedRouterMapper;
 
 public class RouteManager {
-  private Boolean allVersion = true;
-  private String version;
+    private Boolean allVersion;
+    private String version;
 
-  public RouteManager(String version) {
-      allVersion = false;
+    public RouteManager(String version) {
+        allVersion = false;
         this.version = version;
-  }
+    }
 
-  public AbstractRouterMapper getMapper() {
-      AbstractRouterMapper mapper = new VersionedRouterMapper(version);
-      if (allVersion) {
-          mapper = new AllVersionsRouterMapper();
-      }
-      return mapper;
-  }
+    public AbstractRouterMapper getMapper() {
+        AbstractRouterMapper mapper = new VersionedRouterMapper(version);
+        if (allVersion) {
+            mapper = new AllVersionsRouterMapper();
+        }
+        return mapper;
+    }
+
+    public void activeAllVersion (Boolean active) {
+        allVersion = active;
+    }
 }

@@ -1,7 +1,7 @@
-package com.rentcars.fortune.application.http.routes.v2;
+package com.spark.http.routes.v2;
 
-import com.rentcars.fortune.application.http.controllers.v2.TestController;
-import com.rentcars.fortune.application.http.routes.Router;
+import com.spark.http.controllers.v2.IndexController;
+import com.spark.http.routes.Router;
 import java.util.ArrayList;
 import java.util.List;
 import static spark.Spark.get;
@@ -18,8 +18,8 @@ public class ServerRouter implements Router {
     @Override
     public void mapFilters() throws Exception {
 
-        get("/" + version + "/test", TestController::test);
-        routes.add("GET /" + version + "/test");
+        get("/" + version + "/ping", IndexController::ping);
+        routes.add("GET /" + version + "/ping");
     }
 
     @Override
