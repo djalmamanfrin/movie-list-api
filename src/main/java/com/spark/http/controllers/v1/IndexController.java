@@ -1,6 +1,6 @@
 package com.spark.http.controllers.v1;
 
-import com.rentcars.fortune.application.http.response.ApiResponse;
+import com.google.gson.Gson;
 import spark.Request;
 import spark.Response;
 
@@ -11,17 +11,12 @@ import spark.Response;
  */
 public class IndexController {
 
-  public static String index(Request request, Response response) {
-
-      ApiResponse apiResponse = new ApiResponse(response);
-      apiResponse.setResult("version 1");
-      return apiResponse.json();
+  public static void index(Request request, Response response) {
+      String url = "v2" + request.url();
+      response.redirect(url);
   }
 
   public static String ping(Request request, Response response) {
-
-      ApiResponse apiResponse = new ApiResponse(response);
-      apiResponse.setResult("version 1");
-      return apiResponse.json();
+      return new Gson().toJson("Movie List API Version 1");
   }
 }
