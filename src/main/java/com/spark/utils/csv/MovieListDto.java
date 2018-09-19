@@ -1,28 +1,51 @@
 package com.spark.utils.csv;
 
-import com.spark.models.Studios;
-import com.spark.models.Producers;
+import com.opencsv.bean.CsvBindByPosition;
+import java.util.Arrays;
+import java.util.List;
 
+/**
+ * Class MovieListDto
+ * Responsible to parse csv data
+ */
 public class MovieListDto {
+    private static final String COMMA_SEPARATOR = ",\\s?";
+    private static final String AND_SEPARATOR = "\\sand\\s?";
 
-  @CsvBindByName(column = "year", required = true)
-  private String year;
+    @CsvBindByPosition(position = 0)
+    private String year;
 
-  @CsvBindByName(column = "title", required = true)
-  private String title;
+    @CsvBindByPosition(position = 1)
+    private String title;
 
-  @CsvBindByName(column = "studios", required = true)
-  private String studios;
+    @CsvBindByPosition(position = 2)
+    private String studios;
 
-  @CsvBindByName(column = "producers", required = true)
-  private String producers;
+    @CsvBindByPosition(position = 3)
+    private String producers;
 
-  @CsvBindByName(column = "winner", required = true)
-  private Boolean winner;
+    @CsvBindByPosition(position = 4)
+    private String winner;
 
-  // fazer tbm o getProducers
-  public List<Studios> getStudios() {
-    //criar patten
-    List<String> items = Arrays.asList(studios.split("pattern"));
-  }
+    public String getYear() {
+        return year;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public List<String> getStudios() {
+        String allStudios = studios.replace(AND_SEPARATOR, COMMA_SEPARATOR);
+        return Arrays.asList(allStudios.split(COMMA_SEPARATOR));
+    }
+
+    public List<String> getProducers() {
+        String allProducers = producers.replace(AND_SEPARATOR, COMMA_SEPARATOR);
+        return Arrays.asList(allProducers.split(COMMA_SEPARATOR));
+    }
+
+    public Boolean getWinner() {
+        return "yes".equals(winner);
+    }
 }
