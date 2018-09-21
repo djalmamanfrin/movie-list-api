@@ -9,8 +9,8 @@ import java.util.List;
  * Responsible to parse csv data
  */
 public class MovieListDto {
-    private static final String COMMA_SEPARATOR = ",\\s?";
-    private static final String AND_SEPARATOR = "\\sand\\s?";
+    private static final String COMMA_SEPARATOR = ",";
+    private static final String AND_SEPARATOR = " and ?";
 
     @CsvBindByPosition(position = 0)
     private String year;
@@ -41,7 +41,7 @@ public class MovieListDto {
     }
 
     public List<String> getProducers() {
-        String allProducers = producers.replace(AND_SEPARATOR, COMMA_SEPARATOR);
+        String allProducers = producers.replaceAll(AND_SEPARATOR, COMMA_SEPARATOR);
         return Arrays.asList(allProducers.split(COMMA_SEPARATOR));
     }
 
