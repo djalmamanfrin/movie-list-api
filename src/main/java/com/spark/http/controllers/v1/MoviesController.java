@@ -2,7 +2,9 @@ package com.spark.http.controllers.v1;
 
 import com.google.gson.Gson;
 import com.spark.serives.WinnersByYear;
-import com.spark.utils.JsonResponse;
+import com.spark.serives.winnersStudios.WinnersStudios;
+import com.spark.serives.yearsWithWinners.YearsWithMoreOneWinner;
+import com.spark.serives.rangesOfAwards.HigherAndLowerRangesOfAwards;
 import spark.Request;
 import spark.Response;
 
@@ -20,33 +22,33 @@ public class MoviesController {
     }
 
     public static String yearsWithMoreOneWinner(Request request, Response response) {
-      YearsWithMoreOneWinner year = new YearsWithMoreOneWinner();
-      try {
-        years.execute();
-      } catch (Exception e) {
-        response.status(404);
-      }
-      return new Gson().toJson(years.getWinnersCounts());
+        YearsWithMoreOneWinner years = new YearsWithMoreOneWinner();
+        try {
+            years.execute();
+        } catch (Exception e) {
+            response.status(404);
+        }
+        return new Gson().toJson(years.getWinnersCounts());
     }
 
     public static String winnersStudios(Request request, Response response) {
-      WinnersStudios winnersStudios = new WinnersStudios();
-      try {
-        winnersStudios.execute();
-      } catch (Exception e) {
-        response.status(404);
-      }
-      return new Gson().toJson(winnersStudios.getWinnersCounts());
+        WinnersStudios winnersStudios = new WinnersStudios();
+        try {
+            winnersStudios.execute();
+        } catch (Exception e) {
+            response.status(404);
+        }
+        return new Gson().toJson(winnersStudios.getStudiosCounts());
     }
 
     public static String rangesOfAwards(Request request, Response response) {
-      HigherAndLowerRangesOfAwards rangesOfAwards = 
-          new HigherAndLowerRangesOfAwards();
-      try {
-        rangesOfAwards.execute();
-      } catch (Exception e) {
-        response.status(404);
-      }
-      return new Gson().toJson(rangesOfAwards.getRangesOfAwards());
+        HigherAndLowerRangesOfAwards rangesOfAwards =
+                new HigherAndLowerRangesOfAwards();
+        try {
+            rangesOfAwards.execute();
+        } catch (Exception e) {
+            response.status(404);
+        }
+        return new Gson().toJson(rangesOfAwards.getRangesOfAwards());
     }
 }

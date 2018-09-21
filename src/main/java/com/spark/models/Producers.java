@@ -9,15 +9,15 @@ public class Producers {
 
     public Producers(String producer, String movieYear) {
         producerId = UUID.randomUUID().toString();
-        name = producer;
-        year = movieYear;
+        name = producer.trim();
+        year = movieYear.trim();
     }
 
     public String getName() {
       return name;
     }
 
-    public String getYear() {
-      return year;
+    public Integer getYear() {
+      return Integer.parseInt(year);
     }
 }

@@ -1,7 +1,6 @@
 package com.spark.models;
 
 import com.spark.utils.csv.MovieListDto;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -20,7 +19,7 @@ public class Movies {
         this.tittle = movieList.getTitle();
         this.year = movieList.getYear();
         this.winner = movieList.getWinner();
-        movieList.getProducers().forEach(producerName -> producers.add(new Producers(producerName)));
+        movieList.getProducers().forEach(producerName -> producers.add(new Producers(producerName, movieList.getYear())));
         movieList.getStudios().forEach(studiosName -> studios.add(new Studios(studiosName)));
         active = true;
     }
@@ -33,7 +32,7 @@ public class Movies {
         return studios;
     }
 
-    public List<Studios> getStudios() {
-        return studios;
+    public List<Producers> getProducers() {
+        return producers;
     }
 }

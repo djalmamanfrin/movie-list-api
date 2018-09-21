@@ -18,9 +18,13 @@ public class ServerRouter implements Router {
 
     @Override
     public void mapRoutes() {
-        path("/", () -> {
+        path("v1", () -> {
 //            get("", IndexController::index);
             get("/ping", IndexController::ping);
+            get("/movies-by-year", MoviesController::moviesByYear);
+            get("/ranges-of-awards", MoviesController::rangesOfAwards);
+            get("/winners-studios", MoviesController::winnersStudios);
+            get("/years-with-more-one-winner", MoviesController::yearsWithMoreOneWinner);
         });
     }
 
