@@ -25,7 +25,15 @@ public class Movies {
         active = true;
     }
 
-    public void toggleActive(Boolean value) {
-        active = value;
+    public void toggleActive(Boolean toggle) {
+        active = toggle;
+    }
+
+    public List<Studios> getStudios() {
+        return studios;
+    }
+
+    public List<Studios> getStudios() {
+        return studios;
     }
 }

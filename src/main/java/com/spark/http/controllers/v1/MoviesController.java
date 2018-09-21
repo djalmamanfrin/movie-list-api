@@ -9,13 +9,44 @@ import spark.Response;
 public class MoviesController {
     public static String moviesByYear(Request request, Response response) {
         String year = request.queryParams("year");
-        WinnersByYear winners = new WinnersByYear(year);
+        WinnersByYear winnersByYear = new WinnersByYear(year);
         try {
-            winners.execute();
+            winnersByYear.execute();
         } catch (Exception e) {
             response.status(404);
 //            json.render();
         }
-        return new Gson().toJson(winners.getResponse());
+        return new Gson().toJson(winnersByYear.getMovies());
+    }
+
+    public static String yearsWithMoreOneWinner(Request request, Response response) {
+      YearsWithMoreOneWinner year = new YearsWithMoreOneWinner();
+      try {
+        years.execute();
+      } catch (Exception e) {
+        response.status(404);
+      }
+      return new Gson().toJson(years.getWinnersCounts());
+    }
+
+    public static String winnersStudios(Request request, Response response) {
+      WinnersStudios winnersStudios = new WinnersStudios();
+      try {
+        winnersStudios.execute();
+      } catch (Exception e) {
+        response.status(404);
+      }
+      return new Gson().toJson(winnersStudios.getWinnersCounts());
+    }
+
+    public static String rangesOfAwards(Request request, Response response) {
+      HigherAndLowerRangesOfAwards rangesOfAwards = 
+          new HigherAndLowerRangesOfAwards();
+      try {
+        rangesOfAwards.execute();
+      } catch (Exception e) {
+        response.status(404);
+      }
+      return new Gson().toJson(rangesOfAwards.getRangesOfAwards());
     }
 }

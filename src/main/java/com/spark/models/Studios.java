@@ -10,4 +10,8 @@ public class Studios {
         studioId = UUID.randomUUID().toString();
         name = studio;
     }
+
+    public String getName() {
+      return name;
+    }
 }

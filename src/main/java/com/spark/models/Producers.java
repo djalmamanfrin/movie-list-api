@@ -5,9 +5,19 @@ import java.util.UUID;
 public class Producers {
     public String producerId;
     public String name;
+    public String year;
 
-    public Producers(String studio) {
+    public Producers(String producer, String movieYear) {
         producerId = UUID.randomUUID().toString();
-        name = studio;
+        name = producer;
+        year = movieYear;
+    }
+
+    public String getName() {
+      return name;
+    }
+
+    public String getYear() {
+      return year;
     }
 }
