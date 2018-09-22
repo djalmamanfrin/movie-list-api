@@ -1,6 +1,6 @@
 # Movie List Api
 
-Basic Application responsible for manage and execute the process described in Especificao_Backend.pdf file in the same path<br/>
+Basic Application responsible for manage and execute the process described in Especificao_Backend.pdf file at the root project<br/>
 
 ## Prerequisites
 
