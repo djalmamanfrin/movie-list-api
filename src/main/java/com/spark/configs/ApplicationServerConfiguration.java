@@ -6,17 +6,14 @@ package com.spark.configs;
  */
 public class ApplicationServerConfiguration {
     public int getPort() {
-        Integer port = 5000;
-        return port;
+        return 5000;
     }
 
     public String getEndpoint() {
-        String endpoint = "127.0.0.1";
-        return endpoint;
+        return "127.0.0.1";
     }
 
     public String getVersion() {
-        String version = "v1";
-        return version;
+        return "v1";
     }
 }

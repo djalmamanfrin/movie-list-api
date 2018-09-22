@@ -1,9 +1,7 @@
 package com.spark;
 
 import com.spark.http.ApplicationServer;
-import com.spark.serives.MovieListManager;
-
-import java.util.List;
+import com.spark.services.MovieListManager;
 
 public class App
 {
