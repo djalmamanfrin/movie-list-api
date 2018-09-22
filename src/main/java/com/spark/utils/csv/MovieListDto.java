@@ -36,7 +36,7 @@ public class MovieListDto {
     }
 
     public List<String> getStudios() {
-        String allStudios = studios.replace(AND_SEPARATOR, COMMA_SEPARATOR);
+        String allStudios = studios.replaceAll(AND_SEPARATOR, COMMA_SEPARATOR);
         return Arrays.asList(allStudios.split(COMMA_SEPARATOR));
     }
 
