@@ -21,13 +21,6 @@ Basic Application responsible for manage and execute the process described in Es
  * TngTech Junit dataprovider
  * Mockito
 
-## Features
- * Threads
- * Massive data processing support
- * Web container
-    * No server need
-
-
 ## Installation
 
 * The installation of [Java JDK](http://www.oracle.com/technetwork/pt/java/javase/downloads/index.html),
