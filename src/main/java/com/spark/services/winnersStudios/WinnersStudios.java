@@ -1,8 +1,10 @@
-package com.spark.serives.winnersStudios;
+package com.spark.services.winnersStudios;
 
+import com.google.gson.Gson;
 import com.spark.models.Movies;
 import com.spark.models.Studios;
-import com.spark.utils.csv.MovieListDto;
+import com.spark.services.MovieService;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -10,13 +12,16 @@ import java.util.stream.Collectors;
  * Class WinnerStudios
  * Service responsible to get studios winner and sort by descending order
  */
-public class WinnersStudios {
+public class WinnersStudios implements MovieService {
     private List<Studios> studios;
     private List<WinnersStudiosTupleDto> tupleDto;
     private List<Movies> movies;
 
-    public WinnersStudios(List<Movies> movies) {
+    public WinnersStudios() {
         studios = new ArrayList<>();
+    }
+
+    public void setMovies(List<Movies> movies) {
         this.movies = movies;
     }
 
@@ -38,7 +43,7 @@ public class WinnersStudios {
         return movie.getWinner();
     }
 
-    public List<WinnersStudiosTupleDto> getStudiosCounts() {
-        return tupleDto;
+    public String getResponse() {
+        return new Gson().toJson(tupleDto);
     }
 }

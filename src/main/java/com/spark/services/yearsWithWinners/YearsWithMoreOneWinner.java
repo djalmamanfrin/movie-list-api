@@ -1,18 +1,24 @@
-package com.spark.serives.yearsWithWinners;
+package com.spark.services.yearsWithWinners;
 
 
+import com.google.gson.Gson;
 import com.spark.models.Movies;
+import com.spark.services.MovieService;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class YearsWithMoreOneWinner {
+public class YearsWithMoreOneWinner implements MovieService {
     private Map<String, Integer> winnersCounts;
     private List<YearsWinnersDto> yearsWinners;
     private List<Movies> movies;
 
-    public YearsWithMoreOneWinner(List<Movies> movies) {
+    public YearsWithMoreOneWinner() {
         winnersCounts = new HashMap<>();
         yearsWinners = new ArrayList<>();
+    }
+
+    public void setMovies(List<Movies> movies) {
         this.movies = movies;
     }
 
@@ -31,7 +37,7 @@ public class YearsWithMoreOneWinner {
         return movie.getWinner();
     }
 
-    public List<YearsWinnersDto> getWinnersCounts() {
-        return yearsWinners;
+    public String getResponse() {
+        return new Gson().toJson(yearsWinners);
     }
 }

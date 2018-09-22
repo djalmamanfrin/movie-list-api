@@ -1,18 +1,24 @@
-package com.spark.serives.rangesOfAwards;
+package com.spark.services.rangesOfAwards;
 
+import com.google.gson.Gson;
 import com.spark.models.Movies;
 import com.spark.models.Producers;
+import com.spark.services.MovieService;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class HigherAndLowerRangesOfAwards {
+public class HigherAndLowerRangesOfAwards implements MovieService {
     private List<Movies> movies;
     private List<Producers> producers;
     private HashMap<String, RangesOfAwardsDto> map;
 
-    public HigherAndLowerRangesOfAwards(List<Movies> movies) {
+    public HigherAndLowerRangesOfAwards() {
         producers = new ArrayList<>();
         map = new HashMap<>();
+    }
+
+    public void setMovies(List<Movies> movies) {
         this.movies = movies;
     }
 
@@ -58,7 +64,7 @@ public class HigherAndLowerRangesOfAwards {
         return movie.getWinner();
     }
 
-    public HashMap<String, RangesOfAwardsDto> getRangesOfAwards() {
-        return map;
+    public String getResponse() {
+        return new Gson().toJson(map);
     }
 }

@@ -1,4 +1,4 @@
-package com.spark.serives.yearsWithWinners;
+package com.spark.services.yearsWithWinners;
 
 public class YearsWinnersDto {
     private String year;

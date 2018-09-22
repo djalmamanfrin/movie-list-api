@@ -1,4 +1,4 @@
-package com.spark.serives.rangesOfAwards;
+package com.spark.services.rangesOfAwards;
 
 public class RangesOfAwardsDto {
     private String producer;

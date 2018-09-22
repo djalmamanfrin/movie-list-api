@@ -1,4 +1,4 @@
-package com.spark.serives.winnersStudios;
+package com.spark.services.winnersStudios;
 
 public class WinnersStudiosTupleDto {
     private String studioName;

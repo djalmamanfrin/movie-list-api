@@ -1,6 +1,8 @@
-package com.spark.services;
+package com.spark.services.winnersByYear;
 
+import com.google.gson.Gson;
 import com.spark.models.Movies;
+import com.spark.services.MovieService;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,25 +10,28 @@ import java.util.stream.Collectors;
 /**
  * Class WinnersByYear
  */
-public class WinnersByYear {
+public class WinnersByYear implements MovieService {
     private String year;
-    private List<Movies> movie;
+    private List<Movies> movies;
     private List<Movies> moviesPerYear;
 
-    WinnersByYear(String year, List<Movies> movie) {
+    public WinnersByYear(String year) {
         this.year = year;
-        this.movie = movie;
     }
 
-    void execute() {
-        moviesPerYear = movie.stream().filter(this::byYear).collect(Collectors.toList());
+    public void setMovies(List<Movies> movies) {
+        this.movies = movies;
+    }
+
+    public void execute() {
+        moviesPerYear = movies.stream().filter(this::byYear).collect(Collectors.toList());
     }
 
     private Boolean byYear(Movies movie) {
         return movie.getYear().equals(year);
     }
 
-    List<Movies> getMovies() {
-        return moviesPerYear;
+    public String getResponse() {
+        return new Gson().toJson(moviesPerYear);
     }
 }
