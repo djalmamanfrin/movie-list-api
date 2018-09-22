@@ -1,6 +1,5 @@
 package com.spark.http.controllers.v2;
 
-import com.google.gson.Gson;
 import spark.Request;
 import spark.Response;
 
@@ -11,12 +10,7 @@ import spark.Response;
  */
 public class IndexController {
 
-    public static void index(Request request, Response response) {
-        String url = "v2" + request.url();
-        response.redirect(url);
-    }
-
-    public static String ping(Request request, Response response) {
-        return new Gson().toJson("Movie List API Version 2");
+    public static String index(Request request, Response response) {
+        return "{\"message\":\"Movie List API Version 1\"}";
     }
 }

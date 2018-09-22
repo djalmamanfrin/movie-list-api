@@ -13,23 +13,10 @@ import static spark.Spark.get;
 public class ServerRouter implements Router {
 
     protected String version = "v2";
-    private List<String> routes = new ArrayList<>();
-
-    @Override
-    public void mapFilters() throws Exception {
-
-        get("/" + version + "/ping", IndexController::ping);
-        routes.add("GET /" + version + "/ping");
-    }
 
     @Override
     public void mapRoutes() {
 
-    }
-
-    @Override
-    public List<String> getRoutes() {
-        return routes;
     }
 
     @Override

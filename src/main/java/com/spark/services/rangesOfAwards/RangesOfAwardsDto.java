@@ -6,19 +6,23 @@ public class RangesOfAwardsDto {
     private Integer previousWin;
     private Integer followingWin;
 
-    public void setProducer(String producer) {
+    void setProducer(String producer) {
         this.producer = producer;
     }
 
-    public void setInterval(Integer interval) {
+    void setInterval(Integer interval) {
         this.interval = interval;
     }
 
-    public void setPreviousWin(Integer previousWin) {
+    public Integer getInterval() {
+        return interval;
+    }
+
+    void setPreviousWin(Integer previousWin) {
         this.previousWin = previousWin;
     }
 
-    public void setFollowingWin(Integer followingWin) {
+    void setFollowingWin(Integer followingWin) {
         this.followingWin = followingWin;
     }
 }

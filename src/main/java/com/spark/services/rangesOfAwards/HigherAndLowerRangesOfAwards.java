@@ -8,11 +8,11 @@ import java.util.stream.Collectors;
 public class HigherAndLowerRangesOfAwards {
     private List<Movies> movies;
     private List<Producers> producers;
-    private List<RangesOfAwardsDto> result;
+    private HashMap<String, RangesOfAwardsDto> map;
 
     public HigherAndLowerRangesOfAwards(List<Movies> movies) {
         producers = new ArrayList<>();
-        result = new ArrayList<>();
+        map = new HashMap<>();
         this.movies = movies;
     }
 
@@ -27,7 +27,7 @@ public class HigherAndLowerRangesOfAwards {
                 .filter(map -> map.getValue() > 1)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
-
+        List<RangesOfAwardsDto> result = new ArrayList<>();
         producerMoreOneWinner.entrySet().forEach(p -> {
             Producers maxPerYear = producers.stream()
                     .filter(producer -> producer.getName().equals(p.getKey()))
@@ -37,7 +37,6 @@ public class HigherAndLowerRangesOfAwards {
                     .filter(producer -> producer.getName().equals(p.getKey()))
                     .min(Comparator.comparing(Producers::getYear))
                     .orElseThrow(NoSuchElementException::new);
-            System.out.println(p.getKey());
 
             RangesOfAwardsDto rangesOfAwards = new RangesOfAwardsDto();
             rangesOfAwards.setProducer(maxPerYear.getName());
@@ -46,13 +45,20 @@ public class HigherAndLowerRangesOfAwards {
             rangesOfAwards.setInterval(maxPerYear.getYear() - minPerYear.getYear());
             result.add(rangesOfAwards);
         });
+
+        Comparator <RangesOfAwardsDto> comparator = Comparator.comparingInt(RangesOfAwardsDto::getInterval);
+        RangesOfAwardsDto MaxRangesOfAwards = result.stream().max(comparator).get();
+        RangesOfAwardsDto MinRangesOfAwards = result.stream().min(comparator).get();
+        result.clear();
+        map.put("max", MaxRangesOfAwards);
+        map.put("min", MinRangesOfAwards);
     }
 
     private Boolean byWinner(Movies movie) {
         return movie.getWinner();
     }
 
-    public List<RangesOfAwardsDto> getRangesOfAwards() {
-        return result;
+    public HashMap<String, RangesOfAwardsDto> getRangesOfAwards() {
+        return map;
     }
 }

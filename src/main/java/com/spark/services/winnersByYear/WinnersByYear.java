@@ -1,8 +1,7 @@
-package com.spark.serives;
+package com.spark.services;
 
 import com.spark.models.Movies;
-import com.spark.utils.csv.MovieListDto;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
