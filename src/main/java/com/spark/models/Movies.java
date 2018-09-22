@@ -24,6 +24,22 @@ public class Movies {
         active = true;
     }
 
+    public String getTittle() {
+        return tittle;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public Boolean getWinner() {
+        return winner;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
     public void toggleActive(Boolean toggle) {
         active = toggle;
     }

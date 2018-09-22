@@ -2,59 +2,53 @@ package com.spark.serives.rangesOfAwards;
 
 import com.spark.models.Movies;
 import com.spark.models.Producers;
-import com.spark.utils.csv.CsvFileReader;
-import com.spark.utils.csv.MovieListDto;
-
 import java.util.*;
-import java.util.Map.Entry;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class HigherAndLowerRangesOfAwards {
-    private CsvFileReader reader;
     private List<Movies> movies;
     private List<Producers> producers;
     private List<RangesOfAwardsDto> result;
 
-    public HigherAndLowerRangesOfAwards() {
-        movies = new ArrayList<>();
+    public HigherAndLowerRangesOfAwards(List<Movies> movies) {
         producers = new ArrayList<>();
         result = new ArrayList<>();
-        reader = new CsvFileReader();
+        this.movies = movies;
     }
 
     public void execute() {
-        List<MovieListDto> movieList = reader.getMovies();
-        movieList.stream().filter(this::byWinner)
-                .forEach(movie -> movies.add(new Movies(movie)));
+        List<Movies> moviesPerWinner = movies.stream().filter(this::byWinner).collect(Collectors.toList());
+        moviesPerWinner.forEach(movie -> producers.addAll(movie.getProducers()));
 
-        this.movies.forEach(movie -> producers.addAll(movie.getProducers()));
+        Map<String, Integer> counts = new HashMap<>();
+        producers.forEach(producer -> counts.merge(producer.getName(), 1, Integer::sum));
 
-        Map<String, Optional<Producers>> maxWinnerPerYear = producers.stream()
-                .collect(Collectors.groupingBy(Producers::getName,
-                        Collectors.maxBy(Comparator.comparingInt(Producers::getYear))));
-
-        Map<String, Optional<Producers>> minWinnerPerYear = producers.stream()
-                .collect(Collectors.groupingBy(Producers::getName,
-                        Collectors.minBy(Comparator.comparingInt(Producers::getYear))));
-
-//        HashMap<String, List<Producers>> test = new HashMap<>();
-//
-//        minWinnerPerYear.forEach((k, v) -> {
-//            if(maxWinnerPerYear.containsKey(k)) {
-//                List<Producers> array = new ArrayList<>();
-//                array.add(v.get());
-//                array.add(maxWinnerPerYear.get(k).get());
-//                test.put(k, array);
-//            }
-//        });
-//        System.out.println("");
+        Map<String, Integer> producerMoreOneWinner = counts.entrySet().stream()
+                .filter(map -> map.getValue() > 1)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
 
-        System.out.println(maxWinnerPerYear);
+        producerMoreOneWinner.entrySet().forEach(p -> {
+            Producers maxPerYear = producers.stream()
+                    .filter(producer -> producer.getName().equals(p.getKey()))
+                    .max(Comparator.comparing(Producers::getYear))
+                    .orElseThrow(NoSuchElementException::new);
+            Producers minPerYear = producers.stream()
+                    .filter(producer -> producer.getName().equals(p.getKey()))
+                    .min(Comparator.comparing(Producers::getYear))
+                    .orElseThrow(NoSuchElementException::new);
+            System.out.println(p.getKey());
+
+            RangesOfAwardsDto rangesOfAwards = new RangesOfAwardsDto();
+            rangesOfAwards.setProducer(maxPerYear.getName());
+            rangesOfAwards.setFollowingWin(maxPerYear.getYear());
+            rangesOfAwards.setPreviousWin(minPerYear.getYear());
+            rangesOfAwards.setInterval(maxPerYear.getYear() - minPerYear.getYear());
+            result.add(rangesOfAwards);
+        });
     }
 
-    private Boolean byWinner(MovieListDto movie) {
+    private Boolean byWinner(Movies movie) {
         return movie.getWinner();
     }
 

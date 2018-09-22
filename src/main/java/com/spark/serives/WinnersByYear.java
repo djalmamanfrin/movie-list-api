@@ -1,36 +1,33 @@
 package com.spark.serives;
 
 import com.spark.models.Movies;
-import com.spark.utils.csv.CsvFileReader;
 import com.spark.utils.csv.MovieListDto;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Class WinnersByYear
  */
 public class WinnersByYear {
     private String year;
-    private CsvFileReader reader;
     private List<Movies> movie;
+    private List<Movies> moviesPerYear;
 
-    public WinnersByYear(String year) {
+    WinnersByYear(String year, List<Movies> movie) {
         this.year = year;
-        movie = new ArrayList<>();
-        reader = new CsvFileReader();
+        this.movie = movie;
     }
 
-    public void execute() {
-        List<MovieListDto> movieList = reader.getMovies();
-        movieList.stream().filter(this::byYear)
-                .forEach(movie -> this.movie.add(new Movies(movie)));
+    void execute() {
+        moviesPerYear = movie.stream().filter(this::byYear).collect(Collectors.toList());
     }
 
-    private Boolean byYear(MovieListDto movie) {
+    private Boolean byYear(Movies movie) {
         return movie.getYear().equals(year);
     }
 
-    public List<Movies> getMovies() {
-        return movie;
+    List<Movies> getMovies() {
+        return moviesPerYear;
     }
 }

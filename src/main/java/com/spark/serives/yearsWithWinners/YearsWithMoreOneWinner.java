@@ -1,32 +1,23 @@
 package com.spark.serives.yearsWithWinners;
 
-import com.spark.models.Movies;
-import com.spark.models.Producers;
-import com.spark.models.Studios;
-import com.spark.serives.rangesOfAwards.RangesOfAwardsDto;
-import com.spark.serives.winnersStudios.WinnersStudiosTupleDto;
-import com.spark.utils.csv.CsvFileReader;
-import com.spark.utils.csv.MovieListDto;
 
+import com.spark.models.Movies;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class YearsWithMoreOneWinner {
-    private CsvFileReader reader;
     private Map<String, Integer> winnersCounts;
     private List<YearsWinnersDto> yearsWinners;
+    private List<Movies> movies;
 
-    public YearsWithMoreOneWinner() {
-        reader = new CsvFileReader();
+    public YearsWithMoreOneWinner(List<Movies> movies) {
         winnersCounts = new HashMap<>();
         yearsWinners = new ArrayList<>();
+        this.movies = movies;
     }
 
     public void execute() {
-        List<MovieListDto> movieList = reader.getMovies();
-
-        movieList.stream().filter(this::byWinner)
+        movies.stream().filter(this::byWinner)
                 .forEach(movie -> winnersCounts.merge(movie.getYear(), 1, Integer::sum));
 
         yearsWinners = winnersCounts.entrySet().stream()
@@ -34,11 +25,9 @@ public class YearsWithMoreOneWinner {
                 .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
                 .map(studio ->  new YearsWinnersDto(studio.getKey(), studio.getValue()))
                 .collect(Collectors.toList());
-
-        System.out.println(yearsWinners);
     }
 
-    private Boolean byWinner(MovieListDto movie) {
+    private Boolean byWinner(Movies movie) {
         return movie.getWinner();
     }
 

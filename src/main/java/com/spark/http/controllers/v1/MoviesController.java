@@ -1,6 +1,7 @@
 package com.spark.http.controllers.v1;
 
 import com.google.gson.Gson;
+import com.spark.serives.MovieListManager;
 import com.spark.serives.WinnersByYear;
 import com.spark.serives.winnersStudios.WinnersStudios;
 import com.spark.serives.yearsWithWinners.YearsWithMoreOneWinner;
@@ -10,45 +11,19 @@ import spark.Response;
 
 public class MoviesController {
     public static String moviesByYear(Request request, Response response) {
-        String year = request.queryParams("year");
-        WinnersByYear winnersByYear = new WinnersByYear(year);
-        try {
-            winnersByYear.execute();
-        } catch (Exception e) {
-            response.status(404);
-//            json.render();
-        }
-        return new Gson().toJson(winnersByYear.getMovies());
+        String year = request.params("year");
+        return new Gson().toJson(MovieListManager.moviesByYear(year));
     }
 
     public static String yearsWithMoreOneWinner(Request request, Response response) {
-        YearsWithMoreOneWinner years = new YearsWithMoreOneWinner();
-        try {
-            years.execute();
-        } catch (Exception e) {
-            response.status(404);
-        }
-        return new Gson().toJson(years.getWinnersCounts());
+        return new Gson().toJson(MovieListManager.yearsWithMoreOneWinner());
     }
 
     public static String winnersStudios(Request request, Response response) {
-        WinnersStudios winnersStudios = new WinnersStudios();
-        try {
-            winnersStudios.execute();
-        } catch (Exception e) {
-            response.status(404);
-        }
-        return new Gson().toJson(winnersStudios.getStudiosCounts());
+        return new Gson().toJson(MovieListManager.winnersStudios());
     }
 
     public static String rangesOfAwards(Request request, Response response) {
-        HigherAndLowerRangesOfAwards rangesOfAwards =
-                new HigherAndLowerRangesOfAwards();
-        try {
-            rangesOfAwards.execute();
-        } catch (Exception e) {
-            response.status(404);
-        }
-        return new Gson().toJson(rangesOfAwards.getRangesOfAwards());
+        return new Gson().toJson(MovieListManager.rangesOfAwards());
     }
 }
