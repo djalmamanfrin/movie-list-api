@@ -30,6 +30,8 @@ even though it is not installed.<br/>
 
 * Run the maven dependencies
 
+* Dont remove de [movielis.csv](movielis.csv) file at the root project. This file is yout "local database".
+
 ### Configuring or setup
 The Default port setted inthe project is 5000. If you are used this port. Change it before run the application.
 
